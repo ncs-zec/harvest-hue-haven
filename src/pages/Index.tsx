@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
 import { LeafyGreen, ShoppingBasket, MapPin } from 'lucide-react';
-import FarmMap from '@/components/FarmMap';
 
 const categories = [
   {
@@ -106,17 +105,6 @@ const Index = () => {
               <FarmerCard key={farmer.name} {...farmer} />
             ))}
           </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mb-12"
-          id="farm-map"
-        >
-          <h2 className="text-2xl font-semibold text-market-brown mb-6">Find Nearby Farms</h2>
-          <FarmMap />
         </motion.section>
       </main>
 
