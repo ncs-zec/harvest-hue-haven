@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
 import { LeafyGreen, ShoppingBasket, MapPin } from 'lucide-react';
@@ -43,7 +44,7 @@ const farmers = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-market-cream font-new-roman">
+    <div className="min-h-screen bg-market-cream font-new-roman pb-20">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -112,11 +113,14 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
           className="mb-12"
+          id="farm-map"
         >
           <h2 className="text-2xl font-semibold text-market-brown mb-6">Find Nearby Farms</h2>
           <FarmMap />
         </motion.section>
       </main>
+
+      <Footer />
     </div>
   );
 };
