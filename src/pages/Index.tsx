@@ -3,6 +3,7 @@ import { Header } from '@/components/Header';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
 import { LeafyGreen, ShoppingBasket, MapPin } from 'lucide-react';
+import FarmMap from '@/components/FarmMap';
 
 const categories = [
   {
@@ -42,7 +43,7 @@ const farmers = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-market-cream">
+    <div className="min-h-screen bg-market-cream font-new-roman">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -96,6 +97,7 @@ const Index = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
+          className="mb-12"
         >
           <h2 className="text-2xl font-semibold text-market-brown mb-6">Featured Farmers</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -103,6 +105,16 @@ const Index = () => {
               <FarmerCard key={farmer.name} {...farmer} />
             ))}
           </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="mb-12"
+        >
+          <h2 className="text-2xl font-semibold text-market-brown mb-6">Find Nearby Farms</h2>
+          <FarmMap />
         </motion.section>
       </main>
     </div>
