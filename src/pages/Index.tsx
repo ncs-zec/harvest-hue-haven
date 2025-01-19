@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
-import { Beef, Milk2, Carrot, Apple } from 'lucide-react';
+import { Beef, Milk, Carrot, Apple } from 'lucide-react';
 
 const categories = [
   {
@@ -13,7 +13,7 @@ const categories = [
   },
   {
     title: "Dairy",
-    icon: Milk2,
+    icon: Milk,
     description: "Fresh milk, cheese, and dairy products"
   },
   {
