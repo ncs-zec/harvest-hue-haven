@@ -1,4 +1,4 @@
-import { Home, MapPin, ShoppingBag, Upload } from 'lucide-react';
+import { Home, MapPin, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 
@@ -32,15 +32,6 @@ export const Footer = () => {
               className="rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors"
             >
               <ShoppingBag className="w-6 h-6" />
-            </Button>
-          </Link>
-          <Link to="/product-upload">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors"
-            >
-              <Upload className="w-6 h-6" />
             </Button>
           </Link>
         </div>

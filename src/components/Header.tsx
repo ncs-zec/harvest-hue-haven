@@ -1,4 +1,4 @@
-import { Menu, User, MapPin, Heart } from 'lucide-react';
+import { Menu, User, MapPin, Heart, ShoppingCart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import {
   Drawer,
@@ -15,7 +15,8 @@ const userData = {
   name: "John Doe",
   email: "john@example.com",
   location: "San Francisco, CA",
-  joinedDate: "January 2024"
+  joinedDate: "January 2024",
+  isFarmer: false // Added to control farmer-specific features
 };
 
 export const Header = () => {
@@ -28,66 +29,85 @@ export const Header = () => {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 className="text-market-brown text-xl font-semibold font-new-roman">Local Market</h1>
         
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="p-2 rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors"
-            >
-              <Menu className="w-6 h-6" />
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <div className="mx-auto w-full max-w-sm">
-              <DrawerHeader>
-                <DrawerTitle className="text-center font-new-roman text-market-brown">
-                  Profile Settings
-                </DrawerTitle>
-              </DrawerHeader>
-              <div className="p-4 space-y-6">
-                {/* Profile Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-market-cream/50 rounded-lg">
-                    <div className="p-2 bg-market-orange/10 rounded-full">
-                      <User className="w-6 h-6 text-market-orange" />
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="p-2 rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors"
+          >
+            <ShoppingCart className="w-6 h-6" />
+          </Button>
+          
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="p-2 rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors"
+              >
+                <Menu className="w-6 h-6" />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className="mx-auto w-full max-w-sm">
+                <DrawerHeader>
+                  <DrawerTitle className="text-center font-new-roman text-market-brown">
+                    Profile Settings
+                  </DrawerTitle>
+                </DrawerHeader>
+                <div className="p-4 space-y-6">
+                  {/* Profile Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 p-3 bg-market-cream/50 rounded-lg">
+                      <div className="p-2 bg-market-orange/10 rounded-full">
+                        <User className="w-6 h-6 text-market-orange" />
+                      </div>
+                      <div>
+                        <h3 className="font-new-roman text-market-brown font-medium">
+                          {userData.name}
+                        </h3>
+                        <p className="text-sm text-market-brown/70">
+                          {userData.email}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-new-roman text-market-brown font-medium">
-                        {userData.name}
-                      </h3>
-                      <p className="text-sm text-market-brown/70">
-                        {userData.email}
-                      </p>
+                    
+                    <div className="flex items-center gap-2 px-3">
+                      <MapPin className="w-4 h-4 text-market-brown/70" />
+                      <span className="text-sm text-market-brown/70">{userData.location}</span>
+                    </div>
+                    
+                    <div className="px-3 text-sm text-market-brown/70">
+                      Member since {userData.joinedDate}
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-2 px-3">
-                    <MapPin className="w-4 h-4 text-market-brown/70" />
-                    <span className="text-sm text-market-brown/70">{userData.location}</span>
-                  </div>
-                  
-                  <div className="px-3 text-sm text-market-brown/70">
-                    Member since {userData.joinedDate}
-                  </div>
-                </div>
 
-                <Separator className="my-4" />
+                  <Separator className="my-4" />
 
-                {/* Navigation Links */}
-                <div className="space-y-2">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start gap-2 text-market-brown hover:text-market-orange hover:bg-market-orange/10"
-                  >
-                    <Heart className="w-4 h-4" />
-                    Your Favorite Farms
-                  </Button>
+                  {/* Navigation Links */}
+                  <div className="space-y-2">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start gap-2 text-market-brown hover:text-market-orange hover:bg-market-orange/10"
+                    >
+                      <Heart className="w-4 h-4" />
+                      Your Favorite Farms
+                    </Button>
+                    
+                    {userData.isFarmer && (
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-2 text-market-brown hover:text-market-orange hover:bg-market-orange/10"
+                      >
+                        Upload Products
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </DrawerContent>
-        </Drawer>
+            </DrawerContent>
+          </Drawer>
+        </div>
       </div>
     </motion.header>
   );
