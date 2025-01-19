@@ -3,27 +3,33 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
-import { LeafyGreen, ShoppingBasket, MapPin } from 'lucide-react';
+import { Meat, Milk, Vegetable, Apple } from 'lucide-react';
 
 const categories = [
   {
-    title: "Fresh Produce",
-    icon: LeafyGreen,
-    description: "Locally grown fruits and vegetables"
+    title: "Meat",
+    icon: Meat,
+    description: "Fresh local meats and poultry"
   },
   {
-    title: "Market Items",
-    icon: ShoppingBasket,
-    description: "Artisanal goods and products"
+    title: "Dairy",
+    icon: Milk,
+    description: "Fresh milk, cheese, and dairy products"
   },
   {
-    title: "Local Vendors",
-    icon: MapPin,
-    description: "Meet your local farmers"
+    title: "Vegetables",
+    icon: Vegetable,
+    description: "Locally grown seasonal vegetables"
+  },
+  {
+    title: "Fruit",
+    icon: Apple,
+    description: "Fresh seasonal fruits"
   }
 ];
 
-const farmers = [
+// This would typically come from a user's saved favorites
+const favoriteFarmers = [
   {
     name: "Green Acres Farm",
     image: "/placeholder.svg",
@@ -86,7 +92,7 @@ const Index = () => {
           className="mb-12"
         >
           <h2 className="text-2xl font-semibold text-market-brown mb-6">Categories</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {categories.map((category) => (
               <CategoryCard key={category.title} {...category} />
             ))}
@@ -99,9 +105,9 @@ const Index = () => {
           transition={{ delay: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-2xl font-semibold text-market-brown mb-6">Featured Farmers</h2>
+          <h2 className="text-2xl font-semibold text-market-brown mb-6">Your Favorite Farms</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {farmers.map((farmer) => (
+            {favoriteFarmers.map((farmer) => (
               <FarmerCard key={farmer.name} {...farmer} />
             ))}
           </div>
