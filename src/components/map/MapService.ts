@@ -42,7 +42,7 @@ export class MapService {
 
           toast({
             title: "Location found",
-            description: data.features[0].place_name
+            children: data.features[0].place_name
           });
 
           return {
@@ -54,14 +54,14 @@ export class MapService {
       } else {
         toast({
           title: "Location not found",
-          description: "Please try a different search term",
+          children: "Please try a different search term",
           variant: "destructive"
         });
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to search location",
+        children: "Failed to search location",
         variant: "destructive"
       });
     }
@@ -95,7 +95,7 @@ export class MapService {
 
     toast({
       title: "Map initialized",
-      description: "You can now search for your farm location!"
+      children: "You can now search for your farm location!"
     });
 
     return map;
