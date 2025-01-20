@@ -20,7 +20,7 @@ const FarmMap = () => {
     const savedLocation = localStorage.getItem('farmerLocation');
     if (savedLocation && map.current) {
       const { lat, lng } = JSON.parse(savedLocation);
-      MapService.addMarker(map.current, [lat, lng]);
+      MapService.addMarker(map.current, [lat, lng], "Your Location");
       map.current.setView([lat, lng], 13);
     }
 
