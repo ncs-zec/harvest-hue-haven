@@ -1,5 +1,5 @@
 import mapboxgl from 'mapbox-gl';
-import { Toast } from '../ui/use-toast';
+import { type ToastProps } from '@/components/ui/toast';
 
 export interface Location {
   lng: number;
@@ -13,7 +13,7 @@ export class MapService {
     mapboxToken: string,
     map: mapboxgl.Map | null,
     marker: mapboxgl.Marker | null,
-    toast: (props: Toast) => void
+    toast: (props: ToastProps) => void
   ): Promise<Location | null> {
     try {
       const response = await fetch(
@@ -71,7 +71,7 @@ export class MapService {
   static initializeMap(
     container: HTMLDivElement,
     mapboxToken: string,
-    toast: (props: Toast) => void
+    toast: (props: ToastProps) => void
   ): mapboxgl.Map {
     mapboxgl.accessToken = mapboxToken;
     
