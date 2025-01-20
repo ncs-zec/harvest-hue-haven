@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import L from 'leaflet';
 import { type ToastProps } from '@/components/ui/toast';
 
 export interface Location {
@@ -10,47 +10,33 @@ export interface Location {
 export class MapService {
   static async searchLocation(
     searchQuery: string,
-    mapboxToken: string,
-    map: mapboxgl.Map | null,
-    marker: mapboxgl.Marker | null,
+    map: L.Map,
     toast: (props: ToastProps) => void
   ): Promise<Location | null> {
     try {
+      // Using Nominatim (OpenStreetMap's free geocoding service)
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          searchQuery
-        )}.json?access_token=${mapboxToken}&limit=1`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}`
       );
       const data = await response.json();
 
-      if (data.features && data.features.length > 0) {
-        const [lng, lat] = data.features[0].center;
-        
-        if (map) {
-          map.flyTo({
-            center: [lng, lat],
-            zoom: 14
-          });
+      if (data && data.length > 0) {
+        const { lat, lon, display_name } = data[0];
+        const location = {
+          lat: parseFloat(lat),
+          lng: parseFloat(lon),
+          address: display_name
+        };
 
-          if (marker) {
-            marker.remove();
-          }
+        map.setView([location.lat, location.lng], 13);
+        this.addMarker(map, [location.lat, location.lng]);
 
-          const newMarker = new mapboxgl.Marker()
-            .setLngLat([lng, lat])
-            .addTo(map);
+        toast({
+          title: "Location found",
+          children: display_name
+        });
 
-          toast({
-            title: "Location found",
-            children: data.features[0].place_name
-          });
-
-          return {
-            lng,
-            lat,
-            address: data.features[0].place_name
-          };
-        }
+        return location;
       } else {
         toast({
           title: "Location not found",
@@ -68,36 +54,33 @@ export class MapService {
     return null;
   }
 
-  static initializeMap(
-    container: HTMLDivElement,
-    mapboxToken: string,
-    toast: (props: ToastProps) => void
-  ): mapboxgl.Map {
-    mapboxgl.accessToken = mapboxToken;
+  static initializeMap(container: HTMLDivElement): L.Map {
+    // Fix Leaflet's icon path issues
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+
+    const map = L.map(container).setView([40, -74.5], 9);
     
-    const map = new mapboxgl.Map({
-      container,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-74.5, 40],
-      zoom: 9
-    });
-
-    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      })
-    );
-
-    toast({
-      title: "Map initialized",
-      children: "You can now search for your farm location!"
-    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
     return map;
+  }
+
+  static addMarker(map: L.Map, position: [number, number]): void {
+    // Clear existing markers
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+
+    // Add new marker
+    L.marker(position).addTo(map);
   }
 }

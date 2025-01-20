@@ -1,92 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { Map as LeafletMap } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { useToast } from './ui/use-toast';
-import MapInitializer from './map/MapInitializer';
-import LocationSearch from './map/LocationSearch';
 import { MapService } from './map/MapService';
+import LocationSearch from './map/LocationSearch';
 
 const FarmMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-  const marker = useRef<mapboxgl.Marker | null>(null);
-  const [mapboxToken, setMapboxToken] = useState('');
-  const [isMapInitialized, setIsMapInitialized] = useState(false);
+  const map = useRef<LeafletMap | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const { toast } = useToast();
 
-  const initializeMap = () => {
-    if (!mapContainer.current || !mapboxToken) return;
-
-    try {
-      map.current = MapService.initializeMap(mapContainer.current, mapboxToken, toast);
-      setIsMapInitialized(true);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to initialize map. Please check your Mapbox token.",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleSearch = async () => {
-    if (!searchQuery) return;
-
-    const location = await MapService.searchLocation(
-      searchQuery,
-      mapboxToken,
-      map.current,
-      marker.current,
-      toast
-    );
-
-    if (location) {
-      marker.current = new mapboxgl.Marker()
-        .setLngLat([location.lng, location.lat])
-        .addTo(map.current!);
-
-      localStorage.setItem('farmerLocation', JSON.stringify(location));
-    }
-  };
-
   useEffect(() => {
+    if (!mapContainer.current || map.current) return;
+
+    map.current = MapService.initializeMap(mapContainer.current);
+    
+    // Load saved location if exists
     const savedLocation = localStorage.getItem('farmerLocation');
     if (savedLocation && map.current) {
-      const { lng, lat } = JSON.parse(savedLocation);
-      map.current.setCenter([lng, lat]);
-      marker.current = new mapboxgl.Marker()
-        .setLngLat([lng, lat])
-        .addTo(map.current);
+      const { lat, lng } = JSON.parse(savedLocation);
+      MapService.addMarker(map.current, [lat, lng]);
+      map.current.setView([lat, lng], 13);
     }
 
     return () => {
       if (map.current) {
         map.current.remove();
+        map.current = null;
       }
     };
-  }, [isMapInitialized]);
+  }, []);
+
+  const handleSearch = async () => {
+    if (!searchQuery || !map.current) return;
+
+    const location = await MapService.searchLocation(searchQuery, map.current, toast);
+    if (location) {
+      localStorage.setItem('farmerLocation', JSON.stringify(location));
+    }
+  };
 
   return (
     <div className="w-full space-y-4 font-new-roman">
-      {!isMapInitialized ? (
-        <MapInitializer
-          mapboxToken={mapboxToken}
-          setMapboxToken={setMapboxToken}
-          onInitialize={initializeMap}
-        />
-      ) : (
-        <LocationSearch
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          onSearch={handleSearch}
-        />
-      )}
+      <LocationSearch
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onSearch={handleSearch}
+      />
       <div
         ref={mapContainer}
-        className={`w-full h-[400px] rounded-lg ${
-          !isMapInitialized ? 'bg-gray-100' : ''
-        }`}
+        className="w-full h-[400px] rounded-lg"
       />
     </div>
   );
