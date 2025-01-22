@@ -4,9 +4,20 @@ interface FarmerCardProps {
   name: string;
   image: string;
   specialty: string;
+  visitedAt?: Date;
 }
 
-export const FarmerCard = ({ name, image, specialty }: FarmerCardProps) => {
+export const FarmerCard = ({ name, image, specialty, visitedAt }: FarmerCardProps) => {
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date);
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -21,7 +32,12 @@ export const FarmerCard = ({ name, image, specialty }: FarmerCardProps) => {
         />
       </div>
       <h3 className="text-market-brown font-semibold text-lg">{name}</h3>
-      <p className="text-market-brown/70 text-sm">{specialty}</p>
+      <p className="text-market-brown/70 text-sm mb-2">{specialty}</p>
+      {visitedAt && (
+        <p className="text-market-brown/50 text-xs">
+          Last visited: {formatDate(visitedAt)}
+        </p>
+      )}
     </motion.div>
   );
 };

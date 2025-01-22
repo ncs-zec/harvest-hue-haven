@@ -3,7 +3,8 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
-import { Beef, Milk, Carrot, Apple } from 'lucide-react';
+import { Beef, Milk, Carrot, Apple, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const categories = [
   {
@@ -33,17 +34,20 @@ const recentlyVisitedFarms = [
   {
     name: "Green Acres Farm",
     image: "/placeholder.svg",
-    specialty: "Organic Vegetables"
+    specialty: "Organic Vegetables",
+    visitedAt: new Date(2024, 3, 15, 14, 30)
   },
   {
     name: "Sunny Valley Fruits",
     image: "/placeholder.svg",
-    specialty: "Fresh Fruits"
+    specialty: "Fresh Fruits",
+    visitedAt: new Date(2024, 3, 14, 16, 45)
   },
   {
     name: "Heritage Farm",
     image: "/placeholder.svg",
-    specialty: "Artisanal Cheese"
+    specialty: "Artisanal Cheese",
+    visitedAt: new Date(2024, 3, 13, 11, 20)
   }
 ];
 
@@ -111,6 +115,23 @@ const Index = () => {
               <FarmerCard key={farmer.name} {...farmer} />
             ))}
           </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="mb-12"
+        >
+          <Link to="/location">
+            <div className="bg-market-orange/10 p-8 rounded-2xl hover:bg-market-orange/20 transition-all cursor-pointer">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <MapPin className="w-8 h-8 text-market-orange" />
+                <h2 className="text-2xl font-semibold text-market-brown">Find Nearby Farms</h2>
+              </div>
+              <p className="text-market-brown/70">Discover local farms in your area using our interactive map</p>
+            </div>
+          </Link>
         </motion.section>
       </main>
 
