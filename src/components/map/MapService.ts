@@ -61,7 +61,7 @@ export class MapService {
         };
 
         map.setView([location.lat, location.lng], 13);
-        this.addMarker(map, [location.lat, location.lng], "Your Location");
+        this.addUserMarker(map, [location.lat, location.lng], "Your Location");
 
         toast({
           title: "Location found",
@@ -87,13 +87,6 @@ export class MapService {
   }
 
   static initializeMap(container: HTMLDivElement): L.Map {
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-    });
-
     const map = L.map(container).setView([40.7128, -74.0060], 9);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -106,20 +99,74 @@ export class MapService {
     return map;
   }
 
-  static addMarker(map: L.Map, position: [number, number], title: string): void {
-    L.marker(position)
+  static createRedPinIcon(): L.Icon {
+    return L.icon({
+      iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI0ZGMDAwMCI+PHBhdGggZD0iTTEyIDJDOC4xMyAyIDUgNS4xMyA1IDljMCA1LjI1IDcgMTMgNyAxM3M3LTcuNzUgNy0xM2MwLTMuODctMy4xMy03LTctN3ptMCA5LjVjLTEuMzggMC0yLjUtMS4xMi0yLjUtMi41czEuMTItMi41IDIuNS0yLjUgMi41IDEuMTIgMi41IDIuNS0xLjEyIDIuNS0yLjUgMi41eiIvPjwvc3ZnPg==',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+    });
+  }
+
+  static createUserIcon(): L.Icon {
+    return L.icon({
+      iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI0Y5NzMxNiI+PHBhdGggZD0iTTEyIDRhNCA0IDAgMTAwIDhhNCA0IDAgMDAwLTh6bTAgMTBjNC40MiAwIDggMS43OSA4IDR2MkgxNnYtMmMwLTEuMS0xLjktMi0zLjUtMi0xLjYgMC0zLjUuOS0zLjUgMnYySDR2LTJjMC0yLjIxIDMuNTgtNCA4LTR6Ii8+PC9zdmc+',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+    });
+  }
+
+  static addUserMarker(map: L.Map, position: [number, number], title: string): void {
+    L.marker(position, { icon: this.createUserIcon() })
+      .bindPopup(title)
+      .addTo(map);
+  }
+
+  static addFarmerMarker(map: L.Map, position: [number, number], title: string): void {
+    L.marker(position, { icon: this.createRedPinIcon() })
       .bindPopup(title)
       .addTo(map);
   }
 
   static addFarmerMarkers(map: L.Map): void {
     SAMPLE_FARMERS.forEach(farmer => {
-      this.addMarker(map, [farmer.lat, farmer.lng], `
+      this.addFarmerMarker(map, [farmer.lat, farmer.lng], `
         <div class="farmer-popup">
           <h3 class="font-bold">${farmer.name}</h3>
           <p>${farmer.address}</p>
         </div>
       `);
     });
+  }
+
+  static findNearestFarm(userLat: number, userLng: number): FarmerLocation {
+    return SAMPLE_FARMERS.reduce((nearest, current) => {
+      const distanceToCurrent = this.calculateDistance(
+        userLat, userLng,
+        current.lat, current.lng
+      );
+      const distanceToNearest = this.calculateDistance(
+        userLat, userLng,
+        nearest.lat, nearest.lng
+      );
+      return distanceToCurrent < distanceToNearest ? current : nearest;
+    }, SAMPLE_FARMERS[0]);
+  }
+
+  static calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371; // Earth's radius in km
+    const dLat = this.deg2rad(lat2 - lat1);
+    const dLon = this.deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  static deg2rad(deg: number): number {
+    return deg * (Math.PI / 180);
   }
 }
