@@ -5,7 +5,6 @@ import { useToast } from './ui/use-toast';
 import { MapService } from './map/MapService';
 import LocationSearch from './map/LocationSearch';
 import { Button } from './ui/button';
-import { MapPin } from 'lucide-react';
 
 const FarmMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -78,7 +77,6 @@ const FarmMap = () => {
           onClick={findNearestFarm}
           className="bg-market-orange hover:bg-market-orange/90 text-white"
         >
-          <MapPin className="w-4 h-4 mr-2" />
           Find Nearest Farm
         </Button>
       </div>
