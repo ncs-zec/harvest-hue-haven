@@ -2,9 +2,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign, ShoppingCart } from "lucide-react";
+import { DollarSign, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 
 // This would typically come from your backend
 const products = [
@@ -36,21 +35,12 @@ const products = [
 
 const Marketplace = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
 
-  const addToCart = (product: typeof products[0]) => {
-    // Get existing cart items from localStorage
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
-    // Add new item to cart
-    const updatedCart = [...existingCart, product];
-    
-    // Save back to localStorage
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    
+  const handleCallFarmer = (product: typeof products[0]) => {
+    // This would typically open the phone dialer with the farmer's number
     toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
+      title: "Calling Farmer",
+      description: `Connecting you with ${product.farmer}...`,
     });
   };
 
@@ -92,10 +82,11 @@ const Marketplace = () => {
                   </span>
                 </div>
                 <Button 
-                  className="w-full mt-4"
-                  onClick={() => addToCart(product)}
+                  className="w-full mt-4 bg-market-orange hover:bg-market-orange/90 text-white"
+                  onClick={() => handleCallFarmer(product)}
                 >
-                  Add to Cart
+                  <Phone className="w-4 h-4 mr-2" />
+                  Call Farmer
                 </Button>
               </CardContent>
             </Card>

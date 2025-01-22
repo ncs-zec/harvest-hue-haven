@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
-import { Beef, Milk, Carrot, Apple, MapPin } from 'lucide-react';
+import { Beef, Milk, Carrot, Apple, MapPin, Egg } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const categories = [
@@ -26,10 +26,14 @@ const categories = [
     title: "Fruit",
     icon: Apple,
     description: "Fresh seasonal fruits"
+  },
+  {
+    title: "Eggs",
+    icon: Egg,
+    description: "Farm fresh eggs"
   }
 ];
 
-// This would typically come from browser history or local storage
 const recentlyVisitedFarms = [
   {
     name: "Green Acres Farm",
@@ -96,7 +100,7 @@ const Index = () => {
           className="mb-12"
         >
           <h2 className="text-2xl font-semibold text-market-brown mb-6">Categories</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {categories.map((category) => (
               <CategoryCard key={category.title} {...category} />
             ))}

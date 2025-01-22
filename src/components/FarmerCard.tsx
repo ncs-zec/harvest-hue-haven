@@ -1,4 +1,7 @@
 import { motion } from 'framer-motion';
+import { MapPin, Phone } from 'lucide-react';
+import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 interface FarmerCardProps {
   name: string;
@@ -34,10 +37,19 @@ export const FarmerCard = ({ name, image, specialty, visitedAt }: FarmerCardProp
       <h3 className="text-market-brown font-semibold text-lg">{name}</h3>
       <p className="text-market-brown/70 text-sm mb-2">{specialty}</p>
       {visitedAt && (
-        <p className="text-market-brown/50 text-xs">
+        <p className="text-market-brown/50 text-xs mb-4">
           Last visited: {formatDate(visitedAt)}
         </p>
       )}
+      <Link to={`/location?farm=${encodeURIComponent(name)}`}>
+        <Button 
+          className="w-full bg-market-orange hover:bg-market-orange/90 text-white"
+          size="sm"
+        >
+          <MapPin className="w-4 h-4 mr-2" />
+          View Location & Contact
+        </Button>
+      </Link>
     </motion.div>
   );
 };
