@@ -13,6 +13,8 @@ export interface FarmerLocation {
   lat: number;
   lng: number;
   address: string;
+  phone: string;
+  email: string;
 }
 
 // Sample farmer data - in a real app, this would come from your database
@@ -22,21 +24,27 @@ const SAMPLE_FARMERS: FarmerLocation[] = [
     name: "Green Acres Farm",
     lat: 40.7128,
     lng: -74.0060,
-    address: "New York, NY"
+    address: "New York, NY",
+    phone: "(555) 123-4567",
+    email: "contact@greenacres.com"
   },
   {
     id: '2',
     name: "Sunny Valley Produce",
     lat: 40.7589,
     lng: -73.9851,
-    address: "Manhattan, NY"
+    address: "Manhattan, NY",
+    phone: "(555) 234-5678",
+    email: "hello@sunnyvalley.com"
   },
   {
     id: '3',
     name: "Fresh Fields Farm",
     lat: 40.7829,
     lng: -73.9654,
-    address: "Upper East Side, NY"
+    address: "Upper East Side, NY",
+    phone: "(555) 345-6789",
+    email: "info@freshfields.com"
   }
 ];
 
@@ -135,6 +143,11 @@ export class MapService {
         <div class="farmer-popup">
           <h3 class="font-bold">${farmer.name}</h3>
           <p>${farmer.address}</p>
+          <p class="mt-2">
+            <strong>Contact:</strong><br>
+            📞 ${farmer.phone}<br>
+            ✉️ ${farmer.email}
+          </p>
         </div>
       `);
     });
