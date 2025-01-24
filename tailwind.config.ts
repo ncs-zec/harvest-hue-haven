@@ -31,9 +31,9 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         market: {
-          brown: '#4A3419',
-          cream: '#FFF9F0',
-          orange: '#F97316',
+          brown: '#8B4513',
+          cream: '#FFF3E0',
+          orange: '#D35400',
           black: '#1A1A1A',
         },
         primary: {

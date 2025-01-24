@@ -1,7 +1,6 @@
-import { Menu, User, MapPin, Heart, ShoppingCart } from 'lucide-react';
+import { Menu, User, MapPin, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import {
   Drawer,
   DrawerContent,
@@ -22,30 +21,6 @@ const userData = {
 };
 
 export const Header = () => {
-  const [cartCount, setCartCount] = useState(0);
-
-  useEffect(() => {
-    // Update cart count whenever localStorage changes
-    const updateCartCount = () => {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      setCartCount(cart.length);
-    };
-
-    // Initial count
-    updateCartCount();
-
-    // Listen for storage events (when cart is modified)
-    window.addEventListener('storage', updateCartCount);
-    
-    // Custom event for cart updates within the same window
-    window.addEventListener('cartUpdated', updateCartCount);
-
-    return () => {
-      window.removeEventListener('storage', updateCartCount);
-      window.removeEventListener('cartUpdated', updateCartCount);
-    };
-  }, []);
-
   return (
     <motion.header 
       initial={{ y: -20, opacity: 0 }}
@@ -56,21 +31,6 @@ export const Header = () => {
         <h1 className="text-market-brown text-xl font-semibold font-new-roman">Local Market</h1>
         
         <div className="flex items-center gap-4">
-          <Link to="/checkout">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="p-2 rounded-full bg-market-orange/10 text-market-orange hover:bg-market-orange/20 transition-colors relative"
-            >
-              <ShoppingCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-market-orange text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
-          </Link>
-          
           <Drawer>
             <DrawerTrigger asChild>
               <Button 
@@ -126,15 +86,6 @@ export const Header = () => {
                       <Heart className="w-4 h-4" />
                       Your Favorite Farms
                     </Button>
-                    
-                    {userData.isFarmer && (
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start gap-2 text-market-brown hover:text-market-orange hover:bg-market-orange/10"
-                      >
-                        Upload Products
-                      </Button>
-                    )}
                   </div>
                 </div>
               </div>

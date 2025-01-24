@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import Location from "./pages/Location";
 import ProductUpload from "./pages/ProductUpload";
 import Marketplace from "./pages/Marketplace";
-import Checkout from "./pages/Checkout";
+import ProductDetail from "./pages/ProductDetail";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +22,7 @@ const App = () => (
           <Route path="/location" element={<Location />} />
           <Route path="/product-upload" element={<ProductUpload />} />
           <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

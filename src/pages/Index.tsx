@@ -72,7 +72,7 @@ const Index = () => {
               animate={{ opacity: 1 }}
               className="text-market-orange text-sm font-medium bg-market-orange/10 px-4 py-1 rounded-full"
             >
-              Welcome to your local market
+              Support Local Agriculture
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -80,16 +80,30 @@ const Index = () => {
               transition={{ delay: 0.2 }}
               className="text-3xl font-bold text-market-brown mt-4"
             >
-              Fresh from the Farm
+              Fresh from Your Local Farms
             </motion.h2>
-            <motion.p 
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-market-brown/70 mt-2"
+              className="text-market-brown/70 mt-6 max-w-2xl mx-auto space-y-4"
             >
-              Discover local produce and artisanal goods
-            </motion.p>
+              <p>
+                By choosing local farms, you're not just getting fresher, more nutritious food - you're making a choice that benefits both the environment and your local economy.
+              </p>
+              <p>
+                • Reduce food miles and carbon footprint
+              </p>
+              <p>
+                • Support local farming families and preserve agricultural heritage
+              </p>
+              <p>
+                • Get seasonal produce at peak freshness and nutrition
+              </p>
+              <p>
+                • Build resilient local food systems for future generations
+              </p>
+            </motion.div>
           </div>
         </motion.section>
 
@@ -137,8 +151,8 @@ const Index = () => {
             </div>
           </Link>
         </motion.section>
-      </main>
 
+      </main>
       <Footer />
     </div>
   );
