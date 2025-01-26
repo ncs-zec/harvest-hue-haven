@@ -88,7 +88,7 @@ const Index = () => {
             <motion.span 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-lg font-bold bg-[#9b87f5] text-white px-6 py-2 rounded-full shadow-lg"
+              className="text-lg font-bold bg-market-orange text-white px-6 py-2 rounded-full shadow-lg"
             >
               Support Local Agriculture
             </motion.span>
@@ -96,7 +96,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-[#6E59A5] mt-4"
+              className="text-3xl font-bold text-market-orange mt-4"
             >
               Fresh from Your Local Farms
             </motion.h2>
@@ -104,50 +104,24 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-[#1A1F2C] mt-6 max-w-2xl mx-auto space-y-4 bg-[#D6BCFA]/10 p-6 rounded-lg shadow-sm"
+              className="text-market-black mt-6 max-w-2xl mx-auto space-y-4 bg-market-orange/10 p-6 rounded-lg shadow-sm"
             >
               <p className="font-semibold">
-                By choosing local farms, you're not just getting fresher, more nutritious food - you're making a choice that benefits both the environment and your local economy.
+                Connect directly with local farmers for the freshest produce and support your community
               </p>
-              <p className="text-[#7E69AB]">
-                • Reduce food miles and carbon footprint
+              <p className="text-market-brown">
+                • Reduce food miles and support sustainable farming
               </p>
-              <p className="text-[#7E69AB]">
-                • Support local farming families and preserve agricultural heritage
+              <p className="text-market-brown">
+                • Get to know your local farmers and their practices
               </p>
-              <p className="text-[#7E69AB]">
-                • Get seasonal produce at peak freshness and nutrition
+              <p className="text-market-brown">
+                • Enjoy seasonal produce at its peak freshness
               </p>
-              <p className="text-[#7E69AB]">
-                • Build resilient local food systems for future generations
+              <p className="text-market-brown">
+                • Support your local economy and farming community
               </p>
             </motion.div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-16"
-        >
-          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-8 text-center">How It Works</h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
-                className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="w-16 h-16 bg-[#9b87f5]/10 rounded-full flex items-center justify-center mb-4">
-                  <step.icon className="w-8 h-8 text-[#6E59A5]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#6E59A5] mb-2">{step.title}</h3>
-                <p className="text-[#7E69AB] text-center">{step.description}</p>
-              </motion.div>
-            ))}
           </div>
         </motion.section>
 
@@ -161,6 +135,32 @@ const Index = () => {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {categories.map((category) => (
               <CategoryCard key={category.title} {...category} />
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mb-16"
+        >
+          <h2 className="text-2xl font-semibold text-market-orange mb-8 text-center">How It Works</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+                className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div className="w-16 h-16 bg-market-orange/10 rounded-full flex items-center justify-center mb-4">
+                  <step.icon className="w-8 h-8 text-market-orange" />
+                </div>
+                <h3 className="text-xl font-semibold text-market-orange mb-2">{step.title}</h3>
+                <p className="text-market-brown text-center">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </motion.section>
