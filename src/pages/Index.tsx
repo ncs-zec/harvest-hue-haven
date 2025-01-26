@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { FarmerCard } from '@/components/FarmerCard';
-import { Beef, Milk, Carrot, Apple, MapPin, Egg, MapPinned, PhoneCall, Truck } from 'lucide-react';
+import { Beef, Milk, Carrot, Apple, MapPin, Egg } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const categories = [
@@ -55,27 +55,9 @@ const recentlyVisitedFarms = [
   }
 ];
 
-const steps = [
-  {
-    icon: MapPinned,
-    title: "Find Local Farms",
-    description: "Use our interactive map to discover farms near you"
-  },
-  {
-    icon: PhoneCall,
-    title: "Contact the Farmer",
-    description: "Connect directly with farmers to discuss products and arrange pickup"
-  },
-  {
-    icon: Truck,
-    title: "Get Fresh Food",
-    description: "Pick up your fresh, locally sourced products directly from the farm"
-  }
-];
-
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white font-new-roman pb-20">
+    <div className="min-h-screen bg-white">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -85,43 +67,21 @@ const Index = () => {
           className="mb-12"
         >
           <div className="text-center mb-8">
-            <motion.span 
+            <motion.h1 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-lg font-bold bg-[#7E69AB] text-white px-6 py-2 rounded-full shadow-lg"
+              className="text-4xl font-bold text-market-black mb-4"
             >
-              Support Local Agriculture
-            </motion.span>
-            <motion.h2 
+              Fresh from Your Local Farms
+            </motion.h1>
+            <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-[#6E59A5] mt-4"
+              className="text-lg text-gray-600 max-w-2xl mx-auto"
             >
-              Fresh from Your Local Farms
-            </motion.h2>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-[#1A1F2C] mt-6 max-w-2xl mx-auto space-y-4 bg-[#F1F0FB] p-6 rounded-lg shadow-sm"
-            >
-              <p className="font-semibold">
-                Connect directly with local farmers for the freshest produce and support your community
-              </p>
-              <p className="text-[#8E9196]">
-                • Reduce food miles and support sustainable farming
-              </p>
-              <p className="text-[#8E9196]">
-                • Get to know your local farmers and their practices
-              </p>
-              <p className="text-[#8E9196]">
-                • Enjoy seasonal produce at its peak freshness
-              </p>
-              <p className="text-[#8E9196]">
-                • Support your local economy and farming community
-              </p>
-            </motion.div>
+              Connect directly with local farmers for the freshest produce and support your community
+            </motion.p>
           </div>
         </motion.section>
 
@@ -131,7 +91,7 @@ const Index = () => {
           transition={{ delay: 0.4 }}
           className="mb-12"
         >
-          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-6">Categories</h2>
+          <h2 className="text-2xl font-bold text-market-black mb-6">Categories</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {categories.map((category) => (
               <CategoryCard key={category.title} {...category} />
@@ -142,36 +102,10 @@ const Index = () => {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-16"
-        >
-          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-8 text-center">How It Works</h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
-                className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="w-16 h-16 bg-[#D6BCFA]/10 rounded-full flex items-center justify-center mb-4">
-                  <step.icon className="w-8 h-8 text-[#6E59A5]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#6E59A5] mb-2">{step.title}</h3>
-                <p className="text-[#8E9196] text-center">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-6">Recently Visited Farms</h2>
+          <h2 className="text-2xl font-bold text-market-black mb-6">Recently Visited Farms</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {recentlyVisitedFarms.map((farmer) => (
               <FarmerCard key={farmer.name} {...farmer} />
@@ -186,11 +120,12 @@ const Index = () => {
           className="mb-12"
         >
           <Link to="/location">
-            <div className="bg-[#D6BCFA]/10 p-8 rounded-2xl hover:bg-[#D6BCFA]/20 transition-all cursor-pointer">
+            <div className="bg-market-cream p-8 rounded-2xl hover:bg-opacity-80 transition-all cursor-pointer">
               <div className="flex items-center justify-center gap-4 mb-4">
-                <h2 className="text-2xl font-semibold text-[#6E59A5]">Find Nearby Farms</h2>
+                <MapPin className="w-6 h-6 text-market-orange" />
+                <h2 className="text-2xl font-bold text-market-black">Find Nearby Farms</h2>
               </div>
-              <p className="text-[#8E9196]">Discover local farms in your area using our interactive map</p>
+              <p className="text-gray-600">Discover local farms in your area using our interactive map</p>
             </div>
           </Link>
         </motion.section>
