@@ -34,7 +34,7 @@ export default {
           brown: '#8B4513',
           cream: '#FFF3E0',
           orange: '#D35400',
-          black: '#1A1A1A',
+          black: '#222222',
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
