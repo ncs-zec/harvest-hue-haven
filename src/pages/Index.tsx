@@ -75,7 +75,7 @@ const steps = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-market-cream font-new-roman pb-20">
+    <div className="min-h-screen bg-white font-new-roman pb-20">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -88,7 +88,7 @@ const Index = () => {
             <motion.span 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-lg font-bold bg-market-orange text-white px-6 py-2 rounded-full shadow-lg"
+              className="text-lg font-bold bg-[#7E69AB] text-white px-6 py-2 rounded-full shadow-lg"
             >
               Support Local Agriculture
             </motion.span>
@@ -96,7 +96,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-market-orange mt-4"
+              className="text-3xl font-bold text-[#6E59A5] mt-4"
             >
               Fresh from Your Local Farms
             </motion.h2>
@@ -104,21 +104,21 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-market-black mt-6 max-w-2xl mx-auto space-y-4 bg-market-orange/10 p-6 rounded-lg shadow-sm"
+              className="text-[#1A1F2C] mt-6 max-w-2xl mx-auto space-y-4 bg-[#F1F0FB] p-6 rounded-lg shadow-sm"
             >
               <p className="font-semibold">
                 Connect directly with local farmers for the freshest produce and support your community
               </p>
-              <p className="text-market-brown">
+              <p className="text-[#8E9196]">
                 • Reduce food miles and support sustainable farming
               </p>
-              <p className="text-market-brown">
+              <p className="text-[#8E9196]">
                 • Get to know your local farmers and their practices
               </p>
-              <p className="text-market-brown">
+              <p className="text-[#8E9196]">
                 • Enjoy seasonal produce at its peak freshness
               </p>
-              <p className="text-market-brown">
+              <p className="text-[#8E9196]">
                 • Support your local economy and farming community
               </p>
             </motion.div>
@@ -145,7 +145,7 @@ const Index = () => {
           transition={{ delay: 0.4 }}
           className="mb-16"
         >
-          <h2 className="text-2xl font-semibold text-market-orange mb-8 text-center">How It Works</h2>
+          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-8 text-center">How It Works</h2>
           <div className="grid gap-8 md:grid-cols-3">
             {steps.map((step, index) => (
               <motion.div
@@ -155,11 +155,11 @@ const Index = () => {
                 transition={{ delay: 0.5 + index * 0.1 }}
                 className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="w-16 h-16 bg-market-orange/10 rounded-full flex items-center justify-center mb-4">
-                  <step.icon className="w-8 h-8 text-market-orange" />
+                <div className="w-16 h-16 bg-[#D6BCFA]/10 rounded-full flex items-center justify-center mb-4">
+                  <step.icon className="w-8 h-8 text-[#6E59A5]" />
                 </div>
-                <h3 className="text-xl font-semibold text-market-orange mb-2">{step.title}</h3>
-                <p className="text-market-brown text-center">{step.description}</p>
+                <h3 className="text-xl font-semibold text-[#6E59A5] mb-2">{step.title}</h3>
+                <p className="text-[#8E9196] text-center">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -171,7 +171,7 @@ const Index = () => {
           transition={{ delay: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-2xl font-semibold text-market-brown mb-6">Recently Visited Farms</h2>
+          <h2 className="text-2xl font-semibold text-[#6E59A5] mb-6">Recently Visited Farms</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {recentlyVisitedFarms.map((farmer) => (
               <FarmerCard key={farmer.name} {...farmer} />
@@ -186,15 +186,14 @@ const Index = () => {
           className="mb-12"
         >
           <Link to="/location">
-            <div className="bg-market-orange/10 p-8 rounded-2xl hover:bg-market-orange/20 transition-all cursor-pointer">
+            <div className="bg-[#D6BCFA]/10 p-8 rounded-2xl hover:bg-[#D6BCFA]/20 transition-all cursor-pointer">
               <div className="flex items-center justify-center gap-4 mb-4">
-                <h2 className="text-2xl font-semibold text-market-brown">Find Nearby Farms</h2>
+                <h2 className="text-2xl font-semibold text-[#6E59A5]">Find Nearby Farms</h2>
               </div>
-              <p className="text-market-brown/70">Discover local farms in your area using our interactive map</p>
+              <p className="text-[#8E9196]">Discover local farms in your area using our interactive map</p>
             </div>
           </Link>
         </motion.section>
-
       </main>
       <Footer />
     </div>
